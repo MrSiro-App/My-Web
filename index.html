@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html lang="vi">
@@ -1014,7 +1015,139 @@
   .brand-copy strong { font-size: 14px !important; max-width: 210px; }
   .avatar { width: 41px !important; height: 41px !important; }
 }
-</style></head>
+</style>
+<style>
+/* =========================================================
+   PAC MODULE DESIGN SYSTEM — đồng bộ màu toàn bộ thẻ
+   Viền trái = icon = nhãn nhóm = nút mở = nút mũi tên
+========================================================= */
+:root {
+  --card-radius: 18px;
+  --card-border: #d9e8ed;
+  --card-shadow: 0 12px 28px rgba(22, 62, 72, .10);
+  --card-shadow-hover: 0 20px 40px rgba(22, 62, 72, .16);
+}
+
+/* Nền thẻ chung: sạch, sáng và đồng nhất */
+.card {
+  --accent: #008fcf;
+  --accent-dark: #006aa6;
+  --soft: #f3fbff;
+  min-height: 270px;
+  padding: 22px;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, #dbe8ec);
+  border-left: 6px solid var(--accent);
+  border-radius: var(--card-radius);
+  background: linear-gradient(155deg, #ffffff 18%, var(--soft) 100%);
+  box-shadow: var(--card-shadow);
+}
+.card::before { display: none; }
+.card::after {
+  width: 138px;
+  height: 138px;
+  right: -62px;
+  top: -74px;
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+}
+.card:hover {
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--accent) 42%, #dbe8ec);
+  border-left-color: var(--accent);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Mỗi phân hệ chỉ dùng một màu nhận diện */
+.card-nvl { --accent:#1976d2; --accent-dark:#1159a6; --soft:#eef6ff; }
+.card-bb { --accent:#7b1fa2; --accent-dark:#581477; --soft:#f8f0fc; }
+.card-khsx { --accent:#f57c00; --accent-dark:#bd5d00; --soft:#fff7ec; }
+.card-mh { --accent:#0097a7; --accent-dark:#006d79; --soft:#eefbfc; }
+.card-sx { --accent:#d32f2f; --accent-dark:#a12020; --soft:#fff2f2; }
+.card-ktp { --accent:#2e7d32; --accent-dark:#1d5a22; --soft:#f0faf1; }
+.card-qc { --accent:#7cb342; --accent-dark:#5d892d; --soft:#f7fceb; }
+.card-bt { --accent:#546e7a; --accent-dark:#394c55; --soft:#f4f7f8; }
+.card-report { --accent:#f4b400; --accent-dark:#b88200; --soft:#fff9e8; }
+
+/* Icon đồng bộ màu với từng card */
+.mark {
+  --mark: var(--accent);
+  --mark-dark: var(--accent-dark);
+  width: 74px;
+  height: 68px;
+  border-radius: 17px 17px 13px 13px;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 82%, white), var(--accent));
+  box-shadow:
+    inset 0 2px 2px rgba(255,255,255,.36),
+    inset 0 -4px 7px rgba(0,0,0,.11),
+    0 5px 0 var(--accent-dark),
+    0 10px 18px color-mix(in srgb, var(--accent) 24%, transparent);
+}
+.mark-nvl,.mark-bb,.mark-khsx,.mark-mh,.mark-sx,.mark-ktp,.mark-qc,.mark-bt,.mark-report {
+  --mark: var(--accent);
+  --mark-dark: var(--accent-dark);
+}
+.mark b { font-size: 27px; }
+.mark small { font-size: 18px; font-weight: 800; }
+.mark-report { color:#4a3900; }
+
+/* Nhãn nhóm và tiêu đề */
+.card .group-label {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .075em;
+  opacity: .95;
+}
+.card h3 {
+  color: #15363d;
+  font-size: 21px;
+  font-weight: 700;
+}
+.card p { color:#647b80; }
+
+/* Nút mở đồng bộ màu */
+.card .open-button {
+  color: var(--accent);
+  border-top-color: color-mix(in srgb, var(--accent) 18%, #e2ecef);
+}
+.card .open-button .arrow {
+  color:#fff;
+  background: var(--accent);
+  box-shadow: 0 3px 0 var(--accent-dark);
+}
+.card-report .open-button,
+.card-report .group-label { color:#a97600; }
+.card-report .open-button .arrow { color:#4a3900; }
+
+/* Badge trạng thái rõ và đồng nhất */
+.status {
+  min-height: 28px;
+  padding: 6px 10px;
+  border: 1px solid #dfe8e6;
+  color:#748285;
+  background:#f5f7f7;
+  font-size:9px;
+  font-weight:800;
+}
+.status:not(.ready)::before {
+  content:"● ";
+  color:#f4b400;
+}
+.status.ready {
+  border-color:#cfe4a9;
+  color:#557d1c;
+  background:#f0f8df;
+}
+
+/* Mobile */
+@media (max-width:560px) {
+  .card { min-height:240px; padding:19px; border-left-width:5px; }
+  .mark { width:68px; height:64px; }
+  .mark b { font-size:25px; }
+  .mark small { font-size:17px; }
+}
+</style>
+
+</head>
 <body>
 <header class="topbar">
 <div class="brand">
@@ -1078,47 +1211,47 @@
 </div>
 <div class="app-grid" id="appGrid">
 <article class="card card-nvl" data-group="Kho Vận" data-search="Quản Lý Kho Nguyên Vật Liệu Nhập Xuất Tồn Lô Hạn Sử Dụng">
-<div class="card-top"><span class="mark teal"><b>🧪</b><small>NVL</small></span><span class="status ready">Sẵn sàng</span></div>
+<div class="card-top"><span class="mark mark-nvl"><b>🧪</b><small>NVL</small></span><span class="status ready">Sẵn sàng</span></div>
 <div class="card-copy"><span class="group-label">Kho Vận</span><h3>Quản lý kho NVL</h3><p>Nhập kho, xuất kho, kiểm soát tồn, truy xuất lô và theo dõi hạn sử dụng nguyên vật liệu.</p></div>
 <button class="open-button" onclick="openLink('https://script.google.com/macros/s/AKfycbyznuwJZKsBOrH2AcG62CAuMzoQSsqreeFTvmz9ItM_i41ZlkoPzb31dskXKJjpDU1oFQ/exec')"><span>Mở ứng dụng</span><span class="arrow">→</span></button>
 </article>
 <article class="card card-bb" data-group="Kho Vận" data-search="Quản Lý Kho Bao Bì Nhập Xuất Tồn Vị Trí">
-<div class="card-top"><span class="mark bb-purple"><b>📦</b><small>BB</small></span><span class="status ready">Sẵn sàng</span></div>
+<div class="card-top"><span class="mark mark-bb"><b>📦</b><small>BB</small></span><span class="status ready">Sẵn sàng</span></div>
 <div class="card-copy"><span class="group-label">Kho Vận</span><h3>Quản lý kho BB</h3><p>Theo dõi bao bì, số lượng nhập xuất, tồn kho và vị trí lưu trữ trong kho.</p></div>
 <button class="open-button" onclick="openLink('https://script.google.com/macros/s/AKfycbz_w0fYrDtUPTqpHqKd9LJiwak-kC5tJTlRERcsecjLBJ9EUxXr1t_NY8B5W5axIO0/exec')"><span>Mở ứng dụng</span><span class="arrow">→</span></button>
 </article>
 <article class="card card-khsx" data-group="Vận Hành" data-search="KHSX Kế hoạch sản xuất Kế Hoạch Tuần Nhu Cầu Nguyên Liệu Lịch Sản Xuất">
-<div class="card-top"><span class="mark khsx-orange"><b>📅</b><small>KHSX</small></span><span class="status ready">Sẵn sàng</span></div>
+<div class="card-top"><span class="mark mark-khsx"><b>📅</b><small>KHSX</small></span><span class="status ready">Sẵn sàng</span></div>
 <div class="card-copy"><span class="group-label">Vận Hành</span><h3>Kế hoạch sản xuất</h3><p>Lập Kế hoạch sản xuất, Theo Dõi Nhu Cầu Nguyên Vật Liệu Và Tiến Độ Thực Hiện.</p></div>
 <button class="open-button" onclick="openLink('https://script.google.com/macros/s/AKfycbyoeke3l-VWIxRwFGN6n8jTnj6FpZ1jfls_rTDQebjeO5foL8QwXzAQgKUu6XiGBNCtBw/exec')"><span>Mở ứng dụng</span><span class="arrow">→</span></button>
 </article>
 <article class="card card-mh" data-group="Chuỗi Cung Ứng" data-search="Mua hàng Nhà Cung Cấp Đơn Hàng Đề Nghị Tiến Độ">
-<div class="card-top"><span class="mark mint"><b>🛒</b><small>MH</small></span><span class="status">Chờ liên kết</span></div>
+<div class="card-top"><span class="mark mark-mh"><b>🛒</b><small>MH</small></span><span class="status">Chờ liên kết</span></div>
 <div class="card-copy"><span class="group-label">Chuỗi Cung Ứng</span><h3>Mua hàng</h3><p>Đề nghị mua, đơn hàng, nhà cung cấp và tiến độ giao hàng được theo dõi tập trung.</p></div>
 <button class="open-button" onclick="showWaiting('Mua hàng')"><span>Xem bản demo</span><span class="arrow">→</span></button>
 </article>
 <article class="card card-sx" data-group="Vận Hành" data-search="Sản Xuất Lệnh Sản Lượng Tiến Độ Máy">
-<div class="card-top"><span class="mark sx-slate"><b>🏭</b><small>SX</small></span><span class="status">Chờ liên kết</span></div>
+<div class="card-top"><span class="mark mark-sx"><b>🏭</b><small>SX</small></span><span class="status">Chờ liên kết</span></div>
 <div class="card-copy"><span class="group-label">Vận Hành</span><h3>Sản Xuất</h3><p>Quản lý lệnh sản xuất, sản lượng, tiến độ thực hiện và trạng thái thiết bị.</p></div>
 <button class="open-button" onclick="showWaiting('Sản Xuất')"><span>Xem bản demo</span><span class="arrow">→</span></button>
 </article>
 <article class="card card-ktp" data-group="Kho Vận" data-search="Kho Thành Phẩm Thành Phẩm Nhập Kho Xuất Kho Tồn Kho Lô Hạn Sử Dụng">
-<div class="card-top"><span class="mark ktp-green"><b>🏷️</b><small>KTP</small></span><span class="status">Chờ liên kết</span></div>
+<div class="card-top"><span class="mark mark-ktp"><b>🏷️</b><small>KTP</small></span><span class="status">Chờ liên kết</span></div>
 <div class="card-copy"><span class="group-label">Kho vận</span><h3>Kho Thành Phẩm</h3><p>Quản lý nhập kho, xuất kho, tồn thành phẩm, số lô và hạn sử dụng sau sản xuất.</p></div>
 <button class="open-button" onclick="showWaiting('Kho Thành Phẩm')"><span>Xem bản demo</span><span class="arrow">→</span></button>
 </article>
-<article class="card" data-group="Chất Lượng" data-search="Chất Lượng QC Kiểm Tra Bất Thường Hồ Sơ Khắc Phục">
-<div class="card-top"><span class="mark green"><b>🔬</b><small>QC</small></span><span class="status">Chờ liên kết</span></div>
+<article class="card card-qc" data-group="Chất Lượng" data-search="Chất Lượng QC Kiểm Tra Bất Thường Hồ Sơ Khắc Phục">
+<div class="card-top"><span class="mark mark-qc"><b>🔬</b><small>QC</small></span><span class="status">Chờ liên kết</span></div>
 <div class="card-copy"><span class="group-label">Chất Lượng</span><h3>Chất Lượng</h3><p>Kiểm Tra QC, Ghi Nhận Bất Thường, Quản Lý Hồ Sơ Và Hành Động Khắc Phục.</p></div>
 <button class="open-button" onclick="showWaiting('Chất Lượng')"><span>Xem bản demo</span><span class="arrow">→</span></button>
 </article>
-<article class="card" data-group="Vận Hành" data-search="Bảo Trì Thiết Bị Sửa Chữa Lịch Sử Máy">
-<div class="card-top"><span class="mark blue"><b>🛠️</b><small>BT</small></span><span class="status">Chờ liên kết</span></div>
+<article class="card card-bt" data-group="Vận Hành" data-search="Bảo Trì Thiết Bị Sửa Chữa Lịch Sử Máy">
+<div class="card-top"><span class="mark mark-bt"><b>🛠️</b><small>BT</small></span><span class="status">Chờ liên kết</span></div>
 <div class="card-copy"><span class="group-label">Vận Hành</span><h3>Bảo Trì</h3><p>Lịch Bảo Trì, Tình Trạng Thiết Bị Và Lịch Sử Sửa Chữa Được Quản Lý Xuyên Suốt.</p></div>
 <button class="open-button" onclick="showWaiting('Bảo Trì')"><span>Xem bản demo</span><span class="arrow">→</span></button>
 </article>
 <article class="card card-report" data-group="Báo Cáo" data-search="Báo cáo điều hành Tổng Hợp Chỉ Số Kho Mua hàng Sản Xuất Chất Lượng">
-<div class="card-top"><span class="mark report-yellow"><b>📊</b><small>BC</small></span><span class="status">Chờ liên kết</span></div>
+<div class="card-top"><span class="mark mark-report"><b>📊</b><small>BC</small></span><span class="status">Chờ liên kết</span></div>
 <div class="card-copy"><span class="group-label">Báo Cáo</span><h3>Báo cáo điều hành</h3><p>Tổng Hợp Chỉ Số Kho, Mua hàng, Sản Xuất Và Chất Lượng Trên Cùng Một Góc Nhìn.</p></div>
 <button class="open-button" onclick="showWaiting('Báo cáo điều hành')"><span>Xem bản demo</span><span class="arrow">→</span></button>
 </article>
