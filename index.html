@@ -4419,6 +4419,50 @@ footer {
 }
 </style>
 
+
+<style id="pac-v15-mobile-orbs-larger">
+/* =========================================================
+   PAC V15
+   - Chỉ tăng nhẹ kích thước bóng trên mobile
+   - Không đổi chiều cao banner
+   - Không đổi chiều dài dây
+   - Không đổi vị trí và số lượng bóng
+   - Không ảnh hưởng Zoom, bộ lọc và liên kết
+========================================================= */
+
+@media (max-width: 820px) {
+  .light-orb {
+    --orb: 40px !important;
+    width: var(--orb) !important;
+    height: var(--orb) !important;
+    bottom: calc(var(--orb) * -1 - 1px) !important;
+  }
+
+  .light-string:nth-child(2) .light-orb,
+  .light-string:nth-child(4) .light-orb,
+  .light-string:nth-child(6) .light-orb,
+  .light-string:nth-child(8) .light-orb {
+    --orb: 46px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .light-orb {
+    --orb: 39px !important;
+    width: var(--orb) !important;
+    height: var(--orb) !important;
+    bottom: calc(var(--orb) * -1 - 1px) !important;
+  }
+
+  .light-string:nth-child(2) .light-orb,
+  .light-string:nth-child(4) .light-orb,
+  .light-string:nth-child(6) .light-orb,
+  .light-string:nth-child(8) .light-orb {
+    --orb: 45px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="page-scale-shell">
