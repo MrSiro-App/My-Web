@@ -1368,40 +1368,52 @@ body {
 
 <style>
 /* =========================================================
-   HIỆU ỨNG HERO KIỂU FLASH 2007
-   Trái: sao lấp lánh rơi | Phải: giàn đèn cầu treo đung đưa
+   HERO FLASH 2007 — BẢN HOÀN THIỆN
+   Trái: sao rơi lấp lánh | Phải: giàn đèn cầu treo
 ========================================================= */
-.hero { isolation: isolate; }
-.hero-copy, .system-status { z-index: 5; }
+.hero {
+  isolation: isolate;
+  overflow: hidden;
+}
+.hero-copy {
+  position: relative;
+  z-index: 6;
+  max-width: 62%;
+}
+.hero .system-status { display: none !important; }
 .hero-fx {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
 }
 .hero .sparkle { display: none !important; }
 
-/* Sao rơi bên trái */
+/* ---------- Sao rơi bên trái ---------- */
 .falling-stars {
   position: absolute;
-  inset: 0 auto 0 0;
-  width: min(34%, 440px);
-  overflow: hidden;
+  inset: 0 auto 0 -1.5%;
+  width: min(38%, 560px);
+  overflow: visible;
 }
 .falling-star {
-  --size: 13px;
+  --size: 15px;
   --duration: 6s;
   --delay: 0s;
   --drift: 34px;
+  --trail: 44px;
   position: absolute;
-  top: -34px;
+  top: -54px;
   left: var(--left, 20%);
   width: var(--size);
   height: var(--size);
   opacity: 0;
-  filter: drop-shadow(0 0 4px rgba(255,255,255,.95))
-          drop-shadow(0 0 9px rgba(255,222,116,.8));
+  transform-origin: center;
+  filter:
+    drop-shadow(0 0 4px rgba(255,255,255,1))
+    drop-shadow(0 0 10px rgba(255,236,142,.95))
+    drop-shadow(0 0 19px rgba(255,189,57,.52));
   animation: pac-star-fall var(--duration) linear var(--delay) infinite;
 }
 .falling-star::before,
@@ -1410,40 +1422,54 @@ body {
   position: absolute;
   inset: 0;
   margin: auto;
-  border-radius: 70% 8%;
-  background: linear-gradient(135deg, #fff 5%, #fff8bf 48%, #ffd95f 100%);
+  border-radius: 80% 7%;
+  background: linear-gradient(135deg, #fff 3%, #fffbd5 40%, #ffd967 72%, #fff 100%);
   transform: rotate(45deg);
 }
-.falling-star::before { width: 26%; height: 100%; }
-.falling-star::after  { width: 100%; height: 26%; }
+.falling-star::before { width: 28%; height: 100%; }
+.falling-star::after  { width: 100%; height: 28%; }
 .falling-star i {
   position: absolute;
-  inset: 32%;
+  inset: 29%;
+  z-index: 2;
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0 0 8px 3px rgba(255,246,174,.9);
-  animation: pac-star-blink 1.1s ease-in-out infinite alternate;
+  box-shadow: 0 0 8px 4px rgba(255,248,191,.95);
+  animation: pac-star-blink 1.05s ease-in-out infinite alternate;
+}
+.falling-star i::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 4px);
+  width: 2px;
+  height: var(--trail);
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: linear-gradient(to bottom, rgba(255,247,189,.72), rgba(255,221,102,.18), transparent);
+  filter: blur(.35px);
 }
 @keyframes pac-star-fall {
-  0%   { transform: translate3d(0,-28px,0) rotate(0deg) scale(.55); opacity: 0; }
-  10%  { opacity: .95; }
-  42%  { transform: translate3d(var(--drift),95px,0) rotate(145deg) scale(1); opacity: 1; }
-  78%  { opacity: .8; }
-  100% { transform: translate3d(calc(var(--drift) * -.35),300px,0) rotate(330deg) scale(.65); opacity: 0; }
+  0%   { transform: translate3d(0,-44px,0) rotate(0deg) scale(.5); opacity: 0; }
+  8%   { opacity: .98; }
+  38%  { transform: translate3d(var(--drift),92px,0) rotate(125deg) scale(1.05); opacity: 1; }
+  72%  { opacity: .9; }
+  100% { transform: translate3d(calc(var(--drift) * -.45),330px,0) rotate(325deg) scale(.68); opacity: 0; }
 }
 @keyframes pac-star-blink {
-  from { opacity: .45; transform: scale(.55); }
-  to   { opacity: 1; transform: scale(1.25); }
+  from { opacity: .5; transform: scale(.62); }
+  to   { opacity: 1; transform: scale(1.38); }
 }
 
-/* Giàn đèn cầu bên phải */
+/* ---------- Giàn đèn cầu bên phải ---------- */
 .hanging-lights {
   position: absolute;
-  top: -4px;
-  right: 1.5%;
-  width: min(34%, 470px);
+  top: -10px;
+  right: -1.5%;
+  width: min(44%, 690px);
   height: 100%;
-  transform-origin: 50% 0;
+  transform-origin: 100% 0;
+  z-index: 4;
 }
 .light-string {
   --x: 50%;
@@ -1457,76 +1483,118 @@ body {
   width: 2px;
   height: var(--length);
   transform-origin: 50% 0;
-  background: linear-gradient(to bottom, rgba(238,250,255,.85), rgba(178,221,236,.42));
-  box-shadow: 0 0 2px rgba(255,255,255,.6);
+  background: linear-gradient(to bottom, rgba(255,255,255,.98), rgba(188,229,245,.50));
+  box-shadow: 0 0 3px rgba(255,255,255,.85);
   animation: pac-light-swing var(--duration) ease-in-out var(--delay) infinite alternate;
 }
 .light-string::before {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -4px;
-  width: 9px;
-  height: 8px;
+  bottom: -5px;
+  width: 11px;
+  height: 10px;
   transform: translateX(-50%);
-  border-radius: 3px 3px 1px 1px;
-  background: linear-gradient(#d9edf5, #608e9d);
-  box-shadow: 0 1px 2px rgba(0,0,0,.25);
+  border-radius: 4px 4px 2px 2px;
+  background: linear-gradient(#edf8fc, #7fa6b4 70%, #496c79);
+  box-shadow: 0 1px 3px rgba(0,0,0,.32), 0 0 5px rgba(255,255,255,.6);
 }
 .light-orb {
-  --orb: 26px;
-  --glow: rgba(255,231,111,.9);
+  --orb: 34px;
+  --glow: rgba(255,225,92,.95);
   position: absolute;
   left: 50%;
-  bottom: calc(var(--orb) * -1 - 7px);
+  bottom: calc(var(--orb) * -1 - 9px);
   width: var(--orb);
   height: var(--orb);
   transform: translateX(-50%);
-  border: 1px solid rgba(255,255,255,.75);
+  border: 1px solid rgba(255,255,255,.92);
   border-radius: 50%;
   background:
-    radial-gradient(circle at 31% 26%, #fff 0 7%, rgba(255,255,255,.7) 8% 15%, transparent 16%),
-    radial-gradient(circle at 46% 42%, #fffbd5 0 9%, var(--glow) 38%, rgba(255,187,71,.72) 68%, rgba(155,86,20,.78) 100%);
+    radial-gradient(circle at 29% 24%, #fff 0 7%, rgba(255,255,255,.82) 8% 15%, transparent 16%),
+    radial-gradient(circle at 47% 43%, #fffde4 0 8%, var(--glow) 37%, rgba(255,171,36,.84) 69%, rgba(121,59,5,.9) 100%);
   box-shadow:
-    inset -5px -7px 8px rgba(91,48,10,.25),
-    inset 4px 4px 7px rgba(255,255,255,.35),
-    0 0 7px 2px var(--glow),
-    0 0 18px 5px color-mix(in srgb, var(--glow) 55%, transparent);
+    inset -7px -9px 11px rgba(70,33,4,.26),
+    inset 5px 5px 8px rgba(255,255,255,.45),
+    0 0 8px 3px var(--glow),
+    0 0 24px 8px color-mix(in srgb, var(--glow) 60%, transparent);
   animation: pac-orb-glow 1.75s ease-in-out infinite alternate;
 }
+.light-orb::after {
+  content: "";
+  position: absolute;
+  inset: 14%;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.22);
+}
 .light-orb.cool {
-  --glow: rgba(118,231,255,.9);
+  --glow: rgba(94,230,255,.96);
   background:
-    radial-gradient(circle at 31% 26%, #fff 0 7%, rgba(255,255,255,.7) 8% 15%, transparent 16%),
-    radial-gradient(circle at 46% 42%, #e9feff 0 9%, rgba(99,226,255,.95) 38%, rgba(41,154,214,.76) 68%, rgba(7,79,128,.85) 100%);
+    radial-gradient(circle at 29% 24%, #fff 0 7%, rgba(255,255,255,.84) 8% 15%, transparent 16%),
+    radial-gradient(circle at 47% 43%, #eaffff 0 8%, rgba(81,226,255,.98) 37%, rgba(29,146,216,.84) 69%, rgba(4,62,112,.92) 100%);
 }
 .light-orb.pink {
-  --glow: rgba(255,130,210,.88);
+  --glow: rgba(255,105,205,.94);
   background:
-    radial-gradient(circle at 31% 26%, #fff 0 7%, rgba(255,255,255,.7) 8% 15%, transparent 16%),
-    radial-gradient(circle at 46% 42%, #fff1fb 0 9%, rgba(255,128,211,.95) 38%, rgba(211,46,143,.76) 68%, rgba(119,11,76,.86) 100%);
+    radial-gradient(circle at 29% 24%, #fff 0 7%, rgba(255,255,255,.84) 8% 15%, transparent 16%),
+    radial-gradient(circle at 47% 43%, #fff1fb 0 8%, rgba(255,99,202,.98) 37%, rgba(208,38,137,.84) 69%, rgba(103,7,67,.92) 100%);
+}
+.light-orb.green {
+  --glow: rgba(192,255,102,.94);
+  background:
+    radial-gradient(circle at 29% 24%, #fff 0 7%, rgba(255,255,255,.84) 8% 15%, transparent 16%),
+    radial-gradient(circle at 47% 43%, #f7ffe8 0 8%, rgba(192,248,92,.98) 37%, rgba(104,178,38,.84) 69%, rgba(42,96,12,.92) 100%);
+}
+.light-orb.violet {
+  --glow: rgba(203,113,255,.94);
+  background:
+    radial-gradient(circle at 29% 24%, #fff 0 7%, rgba(255,255,255,.84) 8% 15%, transparent 16%),
+    radial-gradient(circle at 47% 43%, #fbecff 0 8%, rgba(198,94,255,.98) 37%, rgba(126,42,202,.84) 69%, rgba(58,10,102,.92) 100%);
 }
 @keyframes pac-light-swing {
   from { transform: rotate(calc(var(--swing) * -1)); }
   to   { transform: rotate(var(--swing)); }
 }
 @keyframes pac-orb-glow {
-  from { filter: brightness(.82); opacity: .88; }
-  to   { filter: brightness(1.18); opacity: 1; }
+  from { filter: brightness(.84) saturate(.95); opacity: .9; }
+  to   { filter: brightness(1.24) saturate(1.12); opacity: 1; }
 }
 
-/* Nhạc nền ẩn hoàn toàn */
 #pacBackgroundMusic { display: none; }
 
 @media (max-width: 820px) {
-  .falling-stars { width: 38%; opacity: .85; }
-  .hanging-lights { width: 38%; right: -3%; transform: scale(.82); transform-origin: 100% 0; }
-  .light-string:nth-child(n+8) { display: none; }
+  .hero-copy { max-width: 76%; }
+  .falling-stars {
+    left: -5%;
+    width: 51%;
+    opacity: .96;
+  }
+  .hanging-lights {
+    right: -7%;
+    width: 55%;
+    transform: scale(.88);
+    transform-origin: 100% 0;
+  }
 }
 @media (max-width: 560px) {
-  .falling-stars { width: 35%; opacity: .72; }
-  .hanging-lights { width: 34%; right: -4%; transform: scale(.65); }
-  .falling-star:nth-child(n+9), .light-string:nth-child(n+7) { display: none; }
+  .hero-copy {
+    max-width: 92%;
+    z-index: 6;
+  }
+  .falling-stars {
+    left: -8%;
+    width: 58%;
+    opacity: .94;
+  }
+  .hanging-lights {
+    top: -8px;
+    right: -11%;
+    width: 64%;
+    transform: scale(.78);
+    transform-origin: 100% 0;
+  }
+  .falling-star:nth-child(n+12),
+  .light-string:nth-child(n+11) { display: none; }
 }
 </style>
 
@@ -1570,39 +1638,38 @@ body {
 <section class="hero">
 <div aria-hidden="true" class="hero-fx">
   <div class="falling-stars">
-    <span class="falling-star" style="--left:7%;--size:10px;--duration:5.8s;--delay:-1.4s;--drift:26px"><i></i></span>
-    <span class="falling-star" style="--left:18%;--size:17px;--duration:7.1s;--delay:-5.2s;--drift:41px"><i></i></span>
-    <span class="falling-star" style="--left:30%;--size:8px;--duration:5.2s;--delay:-2.7s;--drift:24px"><i></i></span>
-    <span class="falling-star" style="--left:43%;--size:14px;--duration:6.6s;--delay:-4.1s;--drift:35px"><i></i></span>
-    <span class="falling-star" style="--left:55%;--size:9px;--duration:5.5s;--delay:-.8s;--drift:30px"><i></i></span>
-    <span class="falling-star" style="--left:66%;--size:19px;--duration:7.5s;--delay:-6.1s;--drift:45px"><i></i></span>
-    <span class="falling-star" style="--left:77%;--size:11px;--duration:6.1s;--delay:-3.2s;--drift:28px"><i></i></span>
-    <span class="falling-star" style="--left:87%;--size:7px;--duration:4.9s;--delay:-1.9s;--drift:20px"><i></i></span>
-    <span class="falling-star" style="--left:24%;--size:6px;--duration:4.6s;--delay:-3.8s;--drift:18px"><i></i></span>
-    <span class="falling-star" style="--left:72%;--size:13px;--duration:6.9s;--delay:-5.7s;--drift:38px"><i></i></span>
+    <span class="falling-star" style="--left:6%;--size:12px;--duration:5.8s;--delay:-1.4s;--drift:28px;--trail:42px"><i></i></span>
+    <span class="falling-star" style="--left:15%;--size:21px;--duration:7.2s;--delay:-5.2s;--drift:46px;--trail:62px"><i></i></span>
+    <span class="falling-star" style="--left:25%;--size:9px;--duration:5.1s;--delay:-2.7s;--drift:22px;--trail:34px"><i></i></span>
+    <span class="falling-star" style="--left:35%;--size:17px;--duration:6.6s;--delay:-4.1s;--drift:39px;--trail:54px"><i></i></span>
+    <span class="falling-star" style="--left:46%;--size:11px;--duration:5.5s;--delay:-.8s;--drift:31px;--trail:40px"><i></i></span>
+    <span class="falling-star" style="--left:57%;--size:23px;--duration:7.6s;--delay:-6.1s;--drift:51px;--trail:68px"><i></i></span>
+    <span class="falling-star" style="--left:69%;--size:14px;--duration:6.1s;--delay:-3.2s;--drift:30px;--trail:46px"><i></i></span>
+    <span class="falling-star" style="--left:80%;--size:9px;--duration:4.9s;--delay:-1.9s;--drift:22px;--trail:32px"><i></i></span>
+    <span class="falling-star" style="--left:91%;--size:16px;--duration:6.8s;--delay:-5.7s;--drift:40px;--trail:52px"><i></i></span>
+    <span class="falling-star" style="--left:20%;--size:7px;--duration:4.5s;--delay:-3.7s;--drift:18px;--trail:28px"><i></i></span>
+    <span class="falling-star" style="--left:51%;--size:8px;--duration:5.2s;--delay:-2.1s;--drift:20px;--trail:30px"><i></i></span>
+    <span class="falling-star" style="--left:74%;--size:19px;--duration:7.0s;--delay:-4.8s;--drift:43px;--trail:58px"><i></i></span>
   </div>
   <div class="hanging-lights">
-    <span class="light-string" style="--x:7%;--length:58px;--swing:5deg;--duration:4.2s;--delay:-1.1s"><i class="light-orb cool" style="--orb:19px"></i></span>
-    <span class="light-string" style="--x:17%;--length:103px;--swing:7deg;--duration:5.4s;--delay:-3.4s"><i class="light-orb" style="--orb:27px"></i></span>
-    <span class="light-string" style="--x:29%;--length:74px;--swing:4deg;--duration:4.8s;--delay:-2.2s"><i class="light-orb pink" style="--orb:22px"></i></span>
-    <span class="light-string" style="--x:41%;--length:133px;--swing:6deg;--duration:5.8s;--delay:-.7s"><i class="light-orb cool" style="--orb:31px"></i></span>
-    <span class="light-string" style="--x:53%;--length:91px;--swing:5deg;--duration:4.5s;--delay:-2.8s"><i class="light-orb" style="--orb:24px"></i></span>
-    <span class="light-string" style="--x:65%;--length:151px;--swing:7deg;--duration:6.2s;--delay:-4.1s"><i class="light-orb pink" style="--orb:29px"></i></span>
-    <span class="light-string" style="--x:77%;--length:72px;--swing:4deg;--duration:4.1s;--delay:-1.8s"><i class="light-orb cool" style="--orb:20px"></i></span>
-    <span class="light-string" style="--x:88%;--length:116px;--swing:6deg;--duration:5.2s;--delay:-3.1s"><i class="light-orb" style="--orb:26px"></i></span>
-    <span class="light-string" style="--x:97%;--length:57px;--swing:5deg;--duration:4.7s;--delay:-.9s"><i class="light-orb pink" style="--orb:18px"></i></span>
+    <span class="light-string" style="--x:3%;--length:62px;--swing:5deg;--duration:4.2s;--delay:-1.1s"><i class="light-orb cool" style="--orb:27px"></i></span>
+    <span class="light-string" style="--x:12%;--length:111px;--swing:7deg;--duration:5.4s;--delay:-3.4s"><i class="light-orb pink" style="--orb:38px"></i></span>
+    <span class="light-string" style="--x:22%;--length:78px;--swing:4deg;--duration:4.8s;--delay:-2.2s"><i class="light-orb green" style="--orb:31px"></i></span>
+    <span class="light-string" style="--x:32%;--length:143px;--swing:6deg;--duration:5.8s;--delay:-.7s"><i class="light-orb cool" style="--orb:45px"></i></span>
+    <span class="light-string" style="--x:42%;--length:96px;--swing:5deg;--duration:4.5s;--delay:-2.8s"><i class="light-orb violet" style="--orb:34px"></i></span>
+    <span class="light-string" style="--x:52%;--length:160px;--swing:7deg;--duration:6.2s;--delay:-4.1s"><i class="light-orb pink" style="--orb:43px"></i></span>
+    <span class="light-string" style="--x:62%;--length:76px;--swing:4deg;--duration:4.1s;--delay:-1.8s"><i class="light-orb cool" style="--orb:29px"></i></span>
+    <span class="light-string" style="--x:72%;--length:122px;--swing:6deg;--duration:5.2s;--delay:-3.1s"><i class="light-orb green" style="--orb:39px"></i></span>
+    <span class="light-string" style="--x:82%;--length:67px;--swing:5deg;--duration:4.7s;--delay:-.9s"><i class="light-orb pink" style="--orb:28px"></i></span>
+    <span class="light-string" style="--x:91%;--length:139px;--swing:6deg;--duration:5.7s;--delay:-2.5s"><i class="light-orb violet" style="--orb:41px"></i></span>
+    <span class="light-string" style="--x:99%;--length:91px;--swing:4deg;--duration:4.9s;--delay:-1.6s"><i class="light-orb cool" style="--orb:32px"></i></span>
   </div>
 </div>
 <div class="hero-copy">
 <h1>Pro Alliance Cosmetic</h1>
 <p>Kiểm Soát Rõ Ràng – Vận Hành Hiệu Quả.</p>
 </div>
-<div class="system-status">
-<i aria-hidden="true" class="status-light"></i>
-<span>HỆ THỐNG</span>
-<strong>Hoạt Động Ổn Định</strong>
-<small>Sẵn Sàng Kết Nối Các Ứng Dụng Nghiệp Vụ</small>
-</div>
+
 </section>
 <div aria-label="Thông Điệp Vận Hành" class="ticker">
 <div class="ticker-track">
