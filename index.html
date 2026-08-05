@@ -4234,6 +4234,191 @@ footer {
 }
 </style>
 
+
+<style id="pac-v14-remove-falling-stars-mobile-orbs-half">
+/* =========================================================
+   PAC V14
+   - Bỏ hoàn toàn sao rơi
+   - Giữ sao nền nhiều cánh
+   - Desktop giữ banner hiện tại
+   - Mobile: dây và bóng kéo xuống khoảng nửa banner
+   - Hiệu ứng không chặn Zoom hoặc liên kết
+========================================================= */
+
+/* Bỏ hoàn toàn sao rơi và khoảng trống liên quan */
+.falling-stars,
+.falling-star {
+  display: none !important;
+  visibility: hidden !important;
+  animation: none !important;
+}
+
+/* Sao nền vẫn phủ toàn bộ banner */
+.hero-fx {
+  position: absolute !important;
+  inset: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+.pac-starfield {
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Chữ và bóng cùng phủ trong banner */
+.hero {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+}
+
+.hero-copy {
+  position: relative !important;
+  z-index: 30 !important;
+}
+
+.hanging-lights,
+.hanging-lights * {
+  pointer-events: none !important;
+}
+
+/* Desktop: giữ chiều cao gọn và giàn bóng nằm trọn banner */
+@media (min-width: 821px) {
+  .hero {
+    min-height: 238px !important;
+    height: 238px !important;
+  }
+
+  .hanging-lights {
+    top: -28px !important;
+    right: -1% !important;
+    width: min(60%, 980px) !important;
+    height: 112% !important;
+  }
+}
+
+/* Tablet/mobile */
+@media (max-width: 820px) {
+  .hero {
+    min-height: 190px !important;
+    height: 190px !important;
+    padding: 12px 14px 13px !important;
+    align-items: flex-end !important;
+  }
+
+  .hero-copy {
+    width: 96% !important;
+    max-width: 96% !important;
+    margin: 0 !important;
+    transform: translateY(-4px) !important;
+  }
+
+  .hero-copy h1,
+  .hero h1 {
+    margin: 0 0 6px !important;
+    max-width: none !important;
+    white-space: nowrap !important;
+    font-size: clamp(24px, 6.4vw, 31px) !important;
+    line-height: 1.02 !important;
+  }
+
+  .hero-copy p,
+  .hero p {
+    width: max-content !important;
+    max-width: none !important;
+    white-space: nowrap !important;
+    font-size: clamp(10.5px, 2.75vw, 13px) !important;
+    line-height: 1.15 !important;
+  }
+
+  /* Giàn bóng phủ nửa trên banner và thả xuống gần giữa banner */
+  .hanging-lights {
+    top: -18px !important;
+    right: -16% !important;
+    width: 90% !important;
+    height: 105% !important;
+    transform: scale(.74) !important;
+    transform-origin: 100% 0 !important;
+  }
+
+  /* 8 dây dài ngắn xen kẽ; bóng thấp nhất ở khoảng giữa banner */
+  .light-string:nth-child(1) { left: -4% !important;  --length: 70px !important; }
+  .light-string:nth-child(2) { left: 12% !important;  --length: 88px !important; }
+  .light-string:nth-child(3) { left: 28% !important;  --length: 76px !important; }
+  .light-string:nth-child(4) { left: 44% !important;  --length: 102px !important; }
+  .light-string:nth-child(5) { left: 60% !important;  --length: 82px !important; }
+  .light-string:nth-child(6) { left: 76% !important;  --length: 112px !important; }
+  .light-string:nth-child(7) { left: 92% !important;  --length: 92px !important; }
+  .light-string:nth-child(8) { left: 108% !important; --length: 118px !important; }
+
+  .light-string:nth-child(n+9) {
+    display: none !important;
+  }
+
+  .light-orb {
+    --orb: 36px !important;
+  }
+
+  .light-string:nth-child(2) .light-orb,
+  .light-string:nth-child(4) .light-orb,
+  .light-string:nth-child(6) .light-orb,
+  .light-string:nth-child(8) .light-orb {
+    --orb: 42px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero {
+    min-height: 182px !important;
+    height: 182px !important;
+    padding: 11px 12px 12px !important;
+  }
+
+  .hero-copy {
+    transform: translateY(-3px) !important;
+  }
+
+  .hero-copy h1,
+  .hero h1 {
+    font-size: clamp(23px, 6.2vw, 29px) !important;
+  }
+
+  .hero-copy p,
+  .hero p {
+    font-size: clamp(10px, 2.65vw, 12.5px) !important;
+  }
+
+  .hanging-lights {
+    top: -16px !important;
+    right: -19% !important;
+    width: 94% !important;
+    transform: scale(.70) !important;
+  }
+
+  .light-string:nth-child(1) { left: -5% !important;  --length: 68px !important; }
+  .light-string:nth-child(2) { left: 12% !important;  --length: 84px !important; }
+  .light-string:nth-child(3) { left: 29% !important;  --length: 73px !important; }
+  .light-string:nth-child(4) { left: 46% !important;  --length: 96px !important; }
+  .light-string:nth-child(5) { left: 63% !important;  --length: 79px !important; }
+  .light-string:nth-child(6) { left: 80% !important;  --length: 104px !important; }
+  .light-string:nth-child(7) { left: 97% !important;  --length: 88px !important; }
+  .light-string:nth-child(8) { left: 114% !important; --length: 110px !important; }
+
+  .light-orb {
+    --orb: 34px !important;
+  }
+
+  .light-string:nth-child(2) .light-orb,
+  .light-string:nth-child(4) .light-orb,
+  .light-string:nth-child(6) .light-orb,
+  .light-string:nth-child(8) .light-orb {
+    --orb: 39px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="page-scale-shell">
@@ -4840,6 +5025,51 @@ footer {
     document.addEventListener('DOMContentLoaded', normalizeHeroTitle, { once: true });
   } else {
     normalizeHeroTitle();
+  }
+})();
+</script>
+
+
+<script id="pac-v14-remove-stars-ensure-orbs">
+(function () {
+  'use strict';
+
+  function removeFallingStars() {
+    document.querySelectorAll('.falling-stars').forEach(el => el.remove());
+  }
+
+  function ensureEightOrbs() {
+    const lights = document.querySelector('.hanging-lights');
+    if (!lights) return;
+
+    const originals = Array.from(lights.querySelectorAll('.light-string'));
+    if (!originals.length) return;
+
+    let index = 0;
+    while (lights.querySelectorAll('.light-string').length < 8) {
+      const clone = originals[index % originals.length].cloneNode(true);
+      clone.removeAttribute('id');
+      clone.style.removeProperty('display');
+      lights.appendChild(clone);
+      index++;
+    }
+  }
+
+  function normalizeTitle() {
+    const title = document.querySelector('.hero-copy h1');
+    if (title) title.textContent = 'Pro Alliance Cosmetic';
+  }
+
+  function init() {
+    removeFallingStars();
+    ensureEightOrbs();
+    normalizeTitle();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
   }
 })();
 </script>
