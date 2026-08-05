@@ -4721,6 +4721,289 @@ font-weight:500!important;
 }
 </style>
 
+
+<style id="pac-v21-orb-glow-rim-and-seasons">
+/* =========================================================
+   PAC V21
+   1) Viền quả cầu phát quang dày theo đúng màu từng bóng
+   2) Giữ nguyên nền trong, sao, quỹ đạo và hiệu ứng bên trong
+   3) Thêm hiệu ứng 4 mùa phủ toàn màn hình
+========================================================= */
+
+/* =========================
+   VIỀN QUẢ CẦU PHÁT QUANG
+========================= */
+.light-orb {
+  border: 3px solid color-mix(in srgb, var(--glow) 76%, white) !important;
+  border-radius: 50% !important;
+
+  box-shadow:
+    /* viền kính sáng */
+    inset 0 3px 4px rgba(255,255,255,.92),
+    inset 3px 1px 5px rgba(255,255,255,.55),
+
+    /* chiều sâu phía dưới */
+    inset 0 -6px 9px rgba(0,0,0,.34),
+    inset -4px -3px 7px rgba(0,0,0,.24),
+
+    /* phát quang sát viền */
+    inset 0 0 0 2px color-mix(in srgb, var(--glow) 45%, transparent),
+    inset 0 0 12px color-mix(in srgb, var(--glow) 48%, transparent),
+
+    /* viền ngoài dày theo màu bóng */
+    0 0 0 2px color-mix(in srgb, var(--glow) 72%, white),
+    0 0 0 4px color-mix(in srgb, var(--glow) 46%, transparent),
+
+    /* glow ngoài */
+    0 0 10px 4px var(--glow),
+    0 0 24px 10px color-mix(in srgb, var(--glow) 42%, transparent),
+
+    /* bóng 3D */
+    0 6px 12px rgba(0,0,0,.28) !important;
+}
+
+/* Vành phản quang sáng chạy sát mép */
+.light-orb .pac-thick-rim {
+  position: absolute !important;
+  inset: 1px !important;
+  border-radius: 50% !important;
+  pointer-events: none !important;
+  z-index: 9 !important;
+
+  background:
+    conic-gradient(
+      from 220deg,
+      rgba(255,255,255,.95) 0deg 32deg,
+      transparent 32deg 148deg,
+      rgba(255,255,255,.34) 148deg 182deg,
+      transparent 182deg 300deg,
+      color-mix(in srgb, var(--glow) 78%, white) 300deg 336deg,
+      transparent 336deg 360deg
+    ) !important;
+
+  -webkit-mask:
+    radial-gradient(circle, transparent 0 77%, #000 78% 100%) !important;
+  mask:
+    radial-gradient(circle, transparent 0 77%, #000 78% 100%) !important;
+
+  filter:
+    drop-shadow(0 0 2px rgba(255,255,255,.85))
+    drop-shadow(0 0 5px var(--glow)) !important;
+
+  animation: pac-rim-shimmer 3.6s ease-in-out infinite alternate !important;
+}
+
+@keyframes pac-rim-shimmer {
+  from { opacity:.72; transform:rotate(-4deg); }
+  to   { opacity:1; transform:rotate(4deg); }
+}
+
+@media (max-width:560px) {
+  .light-orb {
+    border-width: 2.6px !important;
+    box-shadow:
+      inset 0 2px 3px rgba(255,255,255,.90),
+      inset 2px 1px 4px rgba(255,255,255,.50),
+      inset 0 -5px 7px rgba(0,0,0,.32),
+      inset -3px -2px 6px rgba(0,0,0,.22),
+      inset 0 0 0 2px color-mix(in srgb, var(--glow) 42%, transparent),
+      inset 0 0 10px color-mix(in srgb, var(--glow) 44%, transparent),
+      0 0 0 1.5px color-mix(in srgb, var(--glow) 72%, white),
+      0 0 0 3px color-mix(in srgb, var(--glow) 44%, transparent),
+      0 0 9px 4px var(--glow),
+      0 0 20px 8px color-mix(in srgb, var(--glow) 38%, transparent),
+      0 5px 9px rgba(0,0,0,.24) !important;
+  }
+}
+
+/* =========================
+   HIỆU ỨNG 4 MÙA
+========================= */
+#season-effects {
+  position: fixed !important;
+  inset: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  z-index: 9999 !important;
+}
+
+.season-particle {
+  position: absolute !important;
+  top: -60px !important;
+  left: 0;
+  pointer-events: none !important;
+  will-change: transform, opacity !important;
+  backface-visibility: hidden !important;
+}
+
+/* XUÂN — cánh hoa đào */
+.spring-petal {
+  width: var(--size);
+  height: calc(var(--size) * .72);
+  border-radius: 70% 15% 70% 15%;
+  background:
+    radial-gradient(circle at 35% 30%,
+      #fff5fa 0 8%,
+      #ffb7cf 28%,
+      #ff6f9f 68%,
+      #e91e63 100%);
+  box-shadow:
+    inset 2px 1px 3px rgba(255,255,255,.65),
+    0 0 5px rgba(255,105,155,.35);
+  animation:
+    pac-spring-fall var(--duration) linear forwards,
+    pac-season-sway var(--sway-duration) ease-in-out infinite alternate;
+}
+.spring-petal::after {
+  content:"";
+  position:absolute;
+  left:9%;
+  top:10%;
+  width:42%;
+  height:25%;
+  border-radius:50%;
+  background:rgba(255,255,255,.36);
+  transform:rotate(-28deg);
+}
+
+/* HẠ — bồ công anh */
+.summer-seed {
+  width: var(--size);
+  height: var(--size);
+  animation:
+    pac-summer-float var(--duration) linear forwards,
+    pac-season-sway var(--sway-duration) ease-in-out infinite alternate;
+}
+.summer-seed::before {
+  content:"";
+  position:absolute;
+  left:50%;
+  top:43%;
+  width:1px;
+  height:calc(var(--size) * 1.15);
+  transform:translateX(-50%);
+  background:linear-gradient(to bottom, rgba(255,255,255,.95), rgba(255,255,255,.25));
+}
+.summer-seed::after {
+  content:"";
+  position:absolute;
+  left:50%;
+  top:42%;
+  width:calc(var(--size) * .95);
+  height:calc(var(--size) * .95);
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(255,255,255,.95) 0deg 2deg,
+      transparent 2deg 18deg
+    );
+  -webkit-mask:radial-gradient(circle, transparent 0 16%, #000 17% 100%);
+  mask:radial-gradient(circle, transparent 0 16%, #000 17% 100%);
+  filter:
+    drop-shadow(0 0 2px rgba(255,255,255,.9))
+    drop-shadow(0 0 5px rgba(210,245,255,.6));
+}
+
+/* THU — lá phong */
+.autumn-leaf {
+  width:var(--size);
+  height:var(--size);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--leaf-color) 78%, white),
+      var(--leaf-color) 55%,
+      color-mix(in srgb, var(--leaf-color) 75%, #5c1700)
+    );
+  clip-path:polygon(
+    50% 0%,59% 25%,78% 11%,72% 35%,100% 32%,80% 51%,94% 63%,
+    66% 62%,69% 92%,53% 70%,50% 100%,47% 70%,31% 92%,34% 62%,
+    6% 63%,20% 51%,0% 32%,28% 35%,22% 11%,41% 25%
+  );
+  filter:
+    drop-shadow(0 2px 2px rgba(68,25,0,.24))
+    drop-shadow(0 0 3px rgba(255,143,42,.2));
+  animation:
+    pac-autumn-fall var(--duration) linear forwards,
+    pac-season-sway var(--sway-duration) ease-in-out infinite alternate;
+}
+.autumn-leaf::after {
+  content:"";
+  position:absolute;
+  left:48%;
+  top:42%;
+  width:2px;
+  height:62%;
+  transform:rotate(-4deg);
+  transform-origin:top;
+  background:rgba(100,37,0,.52);
+}
+
+/* ĐÔNG — hoa tuyết */
+.winter-snowflake {
+  width:var(--size);
+  height:var(--size);
+  animation:
+    pac-winter-fall var(--duration) linear forwards,
+    pac-season-sway var(--sway-duration) ease-in-out infinite alternate;
+  filter:
+    drop-shadow(0 0 2px rgba(255,255,255,.95))
+    drop-shadow(0 0 6px rgba(150,225,255,.75));
+}
+.winter-snowflake::before,
+.winter-snowflake::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(255,255,255,.98) 0deg 3deg,
+      transparent 3deg 30deg
+    );
+  -webkit-mask:
+    radial-gradient(circle, #000 0 18%, transparent 19% 29%, #000 30% 100%);
+  mask:
+    radial-gradient(circle, #000 0 18%, transparent 19% 29%, #000 30% 100%);
+}
+.winter-snowflake::after {
+  transform:rotate(15deg) scale(.72);
+  opacity:.72;
+}
+
+@keyframes pac-spring-fall {
+  0% { transform:translate3d(0,-40px,0) rotate(0deg) scale(.78); opacity:0; }
+  8% { opacity:var(--opacity); }
+  100% { transform:translate3d(var(--drift),calc(100vh + 80px),0) rotate(var(--rotation)) scale(1); opacity:0; }
+}
+@keyframes pac-summer-float {
+  0% { transform:translate3d(-40px,-50px,0) rotate(0deg) scale(.65); opacity:0; }
+  10% { opacity:var(--opacity); }
+  100% { transform:translate3d(calc(var(--drift) + 130px),calc(100vh + 80px),0) rotate(var(--rotation)) scale(1.05); opacity:0; }
+}
+@keyframes pac-autumn-fall {
+  0% { transform:translate3d(0,-50px,0) rotateX(0) rotateY(0) rotateZ(0); opacity:0; }
+  8% { opacity:var(--opacity); }
+  100% { transform:translate3d(var(--drift),calc(100vh + 80px),0) rotateX(540deg) rotateY(320deg) rotateZ(var(--rotation)); opacity:0; }
+}
+@keyframes pac-winter-fall {
+  0% { transform:translate3d(0,-40px,0) rotate(0deg) scale(.65); opacity:0; }
+  10% { opacity:var(--opacity); }
+  100% { transform:translate3d(var(--drift),calc(100vh + 60px),0) rotate(var(--rotation)) scale(1); opacity:0; }
+}
+@keyframes pac-season-sway {
+  from { margin-left:calc(var(--sway) * -1); }
+  to { margin-left:var(--sway); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #season-effects { display:none !important; }
+}
+</style>
+
 </head>
 <body>
 <div class="page-scale-shell">
@@ -5410,6 +5693,157 @@ font-weight:500!important;
     document.addEventListener('DOMContentLoaded', buildSmoothRims, { once: true });
   } else {
     buildSmoothRims();
+  }
+})();
+</script>
+
+
+<script id="pac-v21-orb-rim-and-season-engine">
+(function () {
+  'use strict';
+
+  function addOrbRims() {
+    document.querySelectorAll('.light-orb').forEach((orb) => {
+      if (!orb.querySelector('.pac-thick-rim')) {
+        const rim = document.createElement('span');
+        rim.className = 'pac-thick-rim';
+        rim.setAttribute('aria-hidden', 'true');
+        orb.appendChild(rim);
+      }
+    });
+  }
+
+  function ensureSeasonContainer() {
+    let container = document.getElementById('season-effects');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'season-effects';
+      container.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(container);
+    }
+    return container;
+  }
+
+  const settings = {
+    spring: {
+      className: 'spring-petal',
+      interval: 240,
+      initialCount: 14,
+      sizeMin: 8,
+      sizeMax: 16,
+      durationMin: 6,
+      durationMax: 10
+    },
+    summer: {
+      className: 'summer-seed',
+      interval: 330,
+      initialCount: 11,
+      sizeMin: 12,
+      sizeMax: 22,
+      durationMin: 8,
+      durationMax: 14
+    },
+    autumn: {
+      className: 'autumn-leaf',
+      interval: 280,
+      initialCount: 12,
+      sizeMin: 13,
+      sizeMax: 25,
+      durationMin: 7,
+      durationMax: 12
+    },
+    winter: {
+      className: 'winter-snowflake',
+      interval: 170,
+      initialCount: 18,
+      sizeMin: 7,
+      sizeMax: 18,
+      durationMin: 7,
+      durationMax: 13
+    }
+  };
+
+  let timer = null;
+  let currentSeason = 'spring';
+
+  function randomBetween(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function getAutoSeason() {
+    const month = new Date().getMonth() + 1;
+    if (month <= 3) return 'spring';
+    if (month <= 6) return 'summer';
+    if (month <= 9) return 'autumn';
+    return 'winter';
+  }
+
+  function createParticle() {
+    const container = ensureSeasonContainer();
+    const config = settings[currentSeason];
+    if (!config) return;
+
+    const particle = document.createElement('span');
+    particle.className = `season-particle ${config.className}`;
+
+    const size = randomBetween(config.sizeMin, config.sizeMax);
+    const duration = randomBetween(config.durationMin, config.durationMax);
+    const swayDuration = randomBetween(1.8, 4.2);
+    const opacity = randomBetween(.45, .92);
+    const drift = randomBetween(-100, 150);
+    const sway = randomBetween(12, 55);
+    const rotation = randomBetween(260, 900);
+
+    particle.style.left = randomBetween(-4, 100) + '%';
+    particle.style.setProperty('--size', size.toFixed(1) + 'px');
+    particle.style.setProperty('--duration', duration.toFixed(2) + 's');
+    particle.style.setProperty('--sway-duration', swayDuration.toFixed(2) + 's');
+    particle.style.setProperty('--opacity', opacity.toFixed(2));
+    particle.style.setProperty('--drift', drift.toFixed(1) + 'px');
+    particle.style.setProperty('--sway', sway.toFixed(1) + 'px');
+    particle.style.setProperty('--rotation', rotation.toFixed(0) + 'deg');
+
+    if (currentSeason === 'autumn') {
+      const colors = ['#f5b82e','#ff8a24','#ef5b2a','#d93a24','#b52b1d','#e08024'];
+      particle.style.setProperty('--leaf-color', colors[Math.floor(Math.random() * colors.length)]);
+    }
+
+    container.appendChild(particle);
+
+    window.setTimeout(() => particle.remove(), (duration + 1.5) * 1000);
+  }
+
+  function startSeason(season) {
+    if (season === 'auto') season = getAutoSeason();
+    if (!settings[season]) return;
+
+    currentSeason = season;
+
+    const container = ensureSeasonContainer();
+    container.replaceChildren();
+
+    if (timer) clearInterval(timer);
+    timer = window.setInterval(createParticle, settings[season].interval);
+
+    for (let i = 0; i < settings[season].initialCount; i++) {
+      window.setTimeout(createParticle, i * 110);
+    }
+
+    document.documentElement.dataset.season = season;
+  }
+
+  window.setSeasonEffect = startSeason;
+
+  function init() {
+    addOrbRims();
+    ensureSeasonContainer();
+    startSeason('auto');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
   }
 })();
 </script>
